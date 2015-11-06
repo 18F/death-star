@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
-    <entity name="Clients" syncable="YES">
+    <entity name="Clients" isAbstract="YES" syncable="YES">
         <attribute name="agency" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="agreement_poc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="common_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -8,76 +8,130 @@
         <attribute name="formal_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="office" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="primary_poc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primary_poc" attributeType="String" syncable="YES"/>
+        <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="secondary_poc" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="get_projects" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="get_client_name" inverseEntity="Projects" syncable="YES"/>
+        <relationship name="push_phone_book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PhoneBook" inverseName="get_poc_info" inverseEntity="PhoneBook" syncable="YES"/>
+    </entity>
+    <entity name="EmployeeGrades" syncable="YES">
+        <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="grade_level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="grade_level_end_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="grade_level_start_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="get_first_and_last_names" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employees" inverseName="get_grade_level" inverseEntity="Employees" syncable="YES"/>
     </entity>
     <entity name="Employees" syncable="YES">
-        <attribute name="employee_type" optional="YES" syncable="YES"/>
+        <attribute name="current_grade_level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="employee_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="end_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="start_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="get_employee_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmployeeTypes" syncable="YES"/>
+        <relationship name="get_employee_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmployeeTypes" inverseName="get_employee_type" inverseEntity="EmployeeTypes" syncable="YES"/>
+        <relationship name="get_grade_level" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EmployeeGrades" inverseName="get_first_and_last_names" inverseEntity="EmployeeGrades" syncable="YES"/>
     </entity>
     <entity name="EmployeeTypes" syncable="YES">
         <attribute name="division" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="employee_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="primary_skill_group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="secondary_skill_group" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sub_division" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="get_employee_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employees" inverseName="get_employee_type" inverseEntity="Employees" syncable="YES"/>
+    </entity>
+    <entity name="Expense" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="billable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="invoiced" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="invoiced_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="payment_method" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="project" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timecard_period" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="get_labor_expense" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Timecards" inverseName="get_invoiced" inverseEntity="Timecards" syncable="YES"/>
+        <relationship name="get_projects" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="get_invoiced_amount" inverseEntity="Projects" syncable="YES"/>
+        <relationship name="get_timecard_period" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimecardPeriods" syncable="YES"/>
+    </entity>
+    <entity name="PhoneBook" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone_number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="street_address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zip" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="get_poc_info" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Clients" inverseName="push_phone_book" inverseEntity="Clients" syncable="YES"/>
     </entity>
     <entity name="ProjectRates" syncable="YES">
-        <attribute name="project_name" optional="YES" syncable="YES"/>
-        <attribute name="rate_type" optional="YES" syncable="YES"/>
-        <attribute name="reporting_period" optional="YES" syncable="YES"/>
-        <relationship name="get_project_name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" syncable="YES"/>
+        <attribute name="project_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rate_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reporting_period" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="get_project_name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" inverseName="get_project_rate" inverseEntity="Projects" syncable="YES"/>
         <relationship name="get_rate_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RateTypes" syncable="YES"/>
         <relationship name="get_reporting_period" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimecardPeriods" syncable="YES"/>
     </entity>
     <entity name="Projects" syncable="YES">
         <attribute name="budget_dollars" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="budget_hours" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="client_name" optional="YES" syncable="YES"/>
+        <attribute name="client_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="invoiced_amounts" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="rate_type" optional="YES" syncable="YES"/>
+        <attribute name="rate_type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="get_client_name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Clients" syncable="YES"/>
-        <relationship name="get_project_rate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectRates" syncable="YES"/>
+        <relationship name="get_client_name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Clients" inverseName="get_projects" inverseEntity="Clients" syncable="YES"/>
+        <relationship name="get_invoiced_amount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expense" inverseName="get_projects" inverseEntity="Expense" syncable="YES"/>
+        <relationship name="get_project_rate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectRates" inverseName="get_project_name" inverseEntity="ProjectRates" syncable="YES"/>
     </entity>
     <entity name="RateTypes" syncable="YES">
-        <attribute name="rate_per_hour" optional="YES" syncable="YES"/>
-        <attribute name="rate_type" optional="YES" syncable="YES"/>
-        <attribute name="status" optional="YES" syncable="YES"/>
+        <attribute name="current_grade_level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="rate_per_hour" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="rate_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="get_grade_levels" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employees" syncable="YES"/>
     </entity>
     <entity name="TimecardPeriods" syncable="YES">
-        <attribute name="end_date" optional="YES" syncable="YES"/>
-        <attribute name="fiscal_year" optional="YES" syncable="YES"/>
-        <attribute name="start_date" optional="YES" syncable="YES"/>
+        <attribute name="end_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fiscal_year" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="start_date" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="Timecards" syncable="YES">
-        <attribute name="employee_name" optional="YES" syncable="YES"/>
+        <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hours" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="invoiced" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="labor_revenue" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="project_name" optional="YES" syncable="YES"/>
-        <attribute name="rate_per_hour" optional="YES" syncable="YES"/>
-        <attribute name="rate_type" optional="YES" syncable="YES"/>
-        <attribute name="timecard_period" optional="YES" syncable="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="project_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rate_per_hour" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="rate_type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timecard_period" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="get_employees_names" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Employees" syncable="YES"/>
+        <relationship name="get_invoiced" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Expense" inverseName="get_labor_expense" inverseEntity="Expense" syncable="YES"/>
         <relationship name="get_project_names" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Projects" syncable="YES"/>
         <relationship name="get_rate_per_hour" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RateTypes" syncable="YES"/>
         <relationship name="get_rate_type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectRates" syncable="YES"/>
         <relationship name="get_timecard_period" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TimecardPeriods" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Employees" positionX="-225" positionY="-18" width="128" height="148"/>
-        <element name="EmployeeTypes" positionX="43" positionY="-153" width="128" height="103"/>
-        <element name="Projects" positionX="-108" positionY="359" width="128" height="193"/>
-        <element name="Clients" positionX="223" positionY="72" width="128" height="178"/>
-        <element name="Timecards" positionX="-297" positionY="192" width="128" height="223"/>
-        <element name="TimecardPeriods" positionX="-144" positionY="-153" width="128" height="90"/>
-        <element name="ProjectRates" positionX="232" positionY="261" width="128" height="135"/>
-        <element name="RateTypes" positionX="169" positionY="-0" width="128" height="90"/>
+        <element name="Employees" positionX="-225" positionY="-18" width="128" height="178"/>
+        <element name="EmployeeTypes" positionX="43" positionY="-153" width="128" height="133"/>
+        <element name="Projects" positionX="-2" positionY="495" width="128" height="223"/>
+        <element name="Clients" positionX="223" positionY="72" width="128" height="223"/>
+        <element name="Timecards" positionX="-297" positionY="192" width="128" height="268"/>
+        <element name="TimecardPeriods" positionX="-126" positionY="-63" width="128" height="88"/>
+        <element name="ProjectRates" positionX="538" positionY="279" width="128" height="133"/>
+        <element name="RateTypes" positionX="169" positionY="-0" width="128" height="118"/>
+        <element name="Expense" positionX="27" positionY="252" width="128" height="253"/>
+        <element name="EmployeeGrades" positionX="36" positionY="261" width="128" height="133"/>
+        <element name="PhoneBook" positionX="45" positionY="270" width="128" height="208"/>
     </elements>
 </model>
