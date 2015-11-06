@@ -6,10 +6,15 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		AB8F2DAD1BEC33EE0007A5B2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		AB8F2DA51BEC33B20007A5B2 = {
 			isa = PBXGroup;
 			children = (
+				AB8F2DAC1BEC33EE0007A5B2 /* Model.xcdatamodeld */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,6 +67,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AB8F2DAC1BEC33EE0007A5B2 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AB8F2DAD1BEC33EE0007A5B2 /* Model.xcdatamodel */,
+			);
+			currentVersion = AB8F2DAD1BEC33EE0007A5B2 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AB8F2DA61BEC33B20007A5B2 /* Project object */;
 }
