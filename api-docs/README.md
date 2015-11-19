@@ -5,7 +5,7 @@ a collection of api docs from possible death star components
 
 
 ### Float (resource planning)
-* [link](https://github.com/floatschedule/api) to publicly available float.com api docs
+* [link](https://github.com/floatschedule/api) to publicly available float.com api doc s
 
 
 ### Tock (time tracking)
